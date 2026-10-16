@@ -27,3 +27,60 @@
 #sidebar-content {
   zoom: var(--gekko-ui-right-content-scale);
 }
+
+/* =========================================================
+   BARRE D'ACCÈS RAPIDE / HOTBAR
+   ========================================================= */
+
+/*
+ * Positionnement optionnel. Le mode standard n'ajoute aucune classe :
+ * Foundry garde alors exactement sa position native.
+ */
+body.gekko-ui-hotbar-bottom-left :is(#hotbar, #ui-bottom .hotbar) {
+  position: fixed !important;
+  left: 16px !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: 16px !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+
+body.gekko-ui-hotbar-bottom-center :is(#hotbar, #ui-bottom .hotbar) {
+  position: fixed !important;
+  left: 50% !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: 16px !important;
+  margin: 0 !important;
+  transform: translateX(-50%) !important;
+}
+
+body.gekko-ui-hotbar-bottom-right :is(#hotbar, #ui-bottom .hotbar) {
+  position: fixed !important;
+  left: auto !important;
+  right: 16px !important;
+  top: auto !important;
+  bottom: 16px !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+
+/* Animation du masquage automatique. */
+body.gekko-ui-hotbar-autohide :is(#hotbar, #ui-bottom .hotbar) {
+  transition:
+    opacity 160ms ease,
+    translate 160ms ease,
+    visibility 0s linear 0s !important;
+}
+
+body.gekko-ui-hotbar-autohide.gekko-ui-hotbar-hidden :is(#hotbar, #ui-bottom .hotbar) {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  translate: 0 calc(100% + 32px) !important;
+  transition:
+    opacity 160ms ease,
+    translate 160ms ease,
+    visibility 0s linear 160ms !important;
+}
