@@ -1,4 +1,4 @@
-# GEKKO — UI Scale 0.1.6
+# GEKKO — UI Scale 0.1.7
 
 Module léger pour Foundry VTT V14.
 
@@ -31,11 +31,38 @@ Dans **Paramètres de la partie → Configurer les paramètres → Paramètres d
 5. **Taille du contenu du panneau droit**
    - Contrôle uniquement le contenu du panneau sélectionné à droite : chat, acteurs, scènes, paramètres, etc.
 
-Les réglages de taille vont de **50 % à 200 %**, par pas de **5 %**. Les réglages d’écartement vont de **-10 px à +20 px**, par pas de **1 px**.
+6. **Masquage automatique de la barre d’accès rapide**
+   - Masque la hotbar lorsqu’elle n’est pas utilisée.
+   - Elle réapparaît lorsque le curseur entre dans la zone de révélation au bas de l’écran.
 
-Tous les réglages sont indépendants et enregistrés côté client.
+7. **Hauteur de la zone de révélation**
+   - Réglable de **1 à 100 px**.
+   - Valeur par défaut : **12 px**.
+
+8. **Délai avant masquage**
+   - Réglable de **0 à 5000 ms**, par pas de **100 ms**.
+   - Valeur par défaut : **2000 ms**.
+
+9. **Position de la barre d’accès rapide**
+   - **Standard Foundry**
+   - **Bas de l’écran — gauche**
+   - **Bas de l’écran — centre**
+   - **Bas de l’écran — droite**
+
+Les réglages sont indépendants et enregistrés côté client.
+
+## Compatibilité avec les modules de hotbar
+
+La 0.1.7 ajoute des fonctions similaires à certains modules spécialisés de gestion de hotbar. Pour éviter que deux modules essaient de déplacer ou masquer la barre en même temps, il est recommandé de désactiver les fonctions équivalentes des autres modules pendant les tests.
 
 ## Historique
+
+### 0.1.7
+- Ajout du masquage automatique de la barre d’accès rapide.
+- Ajout du réglage de la hauteur de la zone de révélation.
+- Ajout du réglage du délai avant masquage.
+- Ajout de quatre positions : Standard Foundry, bas gauche, bas centre et bas droite.
+- Tous les nouveaux réglages sont enregistrés côté client et restent désactivés ou neutres par défaut.
 
 ### 0.1.6
 - Correction de l’écartement négatif sur la barre d’onglets droite.
