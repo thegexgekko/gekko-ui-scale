@@ -1,4 +1,4 @@
-# GEKKO — UI Control 0.1.8
+# GEKKO — Interface Control 0.1.9
 
 Module léger pour Foundry VTT V14 dédié à la personnalisation ergonomique de l’interface.
 
@@ -14,7 +14,7 @@ Foundry pourra ensuite détecter les futures mises à jour via ce manifeste stab
 
 ## Réglages disponibles
 
-Dans **Paramètres de la partie → Configurer les paramètres → Paramètres des modules → GEKKO — UI Control** :
+Dans **Paramètres de la partie → Configurer les paramètres → Paramètres des modules → GEKKO — Interface Control** :
 
 1. **Taille de la barre d’outils gauche**
    - Contrôle uniquement la barre d’outils verticale de gauche.
@@ -55,9 +55,14 @@ Les réglages sont indépendants et enregistrés côté client.
 
 ## Compatibilité avec les modules de hotbar
 
-GEKKO — UI Control propose des fonctions similaires à certains modules spécialisés de gestion de hotbar. Pour éviter que deux modules essaient de déplacer ou masquer la barre en même temps, il est recommandé de désactiver les fonctions équivalentes des autres modules.
+GEKKO — Interface Control propose des fonctions similaires à certains modules spécialisés de gestion de hotbar. Pour éviter que deux modules essaient de déplacer ou masquer la barre en même temps, il est recommandé de désactiver les fonctions équivalentes des autres modules.
 
 ## Historique
+
+### 0.1.9
+- Nouveau nom public : **GEKKO — Interface Control**.
+- Conservation de l’identifiant technique `gekko-ui-scale`, du dépôt GitHub et de l’URL du manifeste afin de ne pas casser les mises à jour existantes.
+- Aucun changement fonctionnel par rapport à la 0.1.8.
 
 ### 0.1.8
 - Nouveau nom public : **GEKKO — UI Control**.
