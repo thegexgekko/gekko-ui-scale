@@ -1,4 +1,4 @@
-# GEKKO — UI Scale 0.1.5
+# GEKKO — UI Scale 0.1.6
 
 Module léger pour Foundry VTT V14.
 
@@ -36,6 +36,12 @@ Les réglages de taille vont de **50 % à 200 %**, par pas de **5 %**. Les régl
 Tous les réglages sont indépendants et enregistrés côté client.
 
 ## Historique
+
+### 0.1.6
+- Correction de l’écartement négatif sur la barre d’onglets droite.
+- Correction de l’écartement partiel sur la barre gauche.
+- L’écartement se base désormais sur la position visuelle réelle des boutons au lieu de dépendre uniquement de leurs classes CSS.
+- Meilleure prise en charge des contrôles ajoutés par des modules tiers et des barres sur plusieurs colonnes ou plusieurs lignes.
 
 ### 0.1.5
 - Ajout d’un réglage indépendant de l’écartement des boutons de la barre gauche.
