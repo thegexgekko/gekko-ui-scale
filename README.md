@@ -1,4 +1,4 @@
-# GEKKO — UI Scale 0.1.4
+# GEKKO — UI Scale 0.1.5
 
 Module léger pour Foundry VTT V14.
 
@@ -17,17 +17,30 @@ Dans **Paramètres de la partie → Configurer les paramètres → Paramètres d
 1. **Taille de la barre d’outils gauche**
    - Contrôle uniquement la barre d’outils verticale de gauche.
 
-2. **Taille de la barre d’onglets droite**
+2. **Écartement des boutons de la barre gauche**
+   - Ajuste l’espace entre les boutons de gauche de **-10 px à +20 px**.
+   - **0 px** conserve l’écartement normal de Foundry.
+
+3. **Taille de la barre d’onglets droite**
    - Contrôle uniquement les boutons d’onglets de la barre latérale droite.
 
-3. **Taille du contenu du panneau droit**
+4. **Écartement des boutons de la barre droite**
+   - Ajuste l’espace entre les boutons de la barre d’onglets droite de **-10 px à +20 px**.
+   - **0 px** conserve l’écartement normal de Foundry.
+
+5. **Taille du contenu du panneau droit**
    - Contrôle uniquement le contenu du panneau sélectionné à droite : chat, acteurs, scènes, paramètres, etc.
 
-Chaque réglage va de **50 % à 200 %**, par pas de **5 %**.
+Les réglages de taille vont de **50 % à 200 %**, par pas de **5 %**. Les réglages d’écartement vont de **-10 px à +20 px**, par pas de **1 px**.
 
-Les trois réglages sont indépendants et enregistrés côté client.
+Tous les réglages sont indépendants et enregistrés côté client.
 
 ## Historique
+
+### 0.1.5
+- Ajout d’un réglage indépendant de l’écartement des boutons de la barre gauche.
+- Ajout d’un réglage indépendant de l’écartement des boutons de la barre droite.
+- 0 px conserve l’espacement natif de Foundry ; les valeurs négatives rapprochent les boutons et les valeurs positives les éloignent.
 
 ### 0.1.4
 - Ajout des métadonnées GitHub nécessaires à l’installation et aux mises à jour automatiques de Foundry.

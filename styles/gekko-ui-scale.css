@@ -1,6 +1,8 @@
 :root {
   --gekko-ui-left-scale: 1;
+  --gekko-ui-left-spacing: 0px;
   --gekko-ui-right-tabs-scale: 1;
+  --gekko-ui-right-tabs-spacing: 0px;
   --gekko-ui-right-content-scale: 1;
 }
 
@@ -10,11 +12,31 @@
   transform-origin: top left;
 }
 
+/*
+ * Espacement supplémentaire entre les boutons de gauche.
+ * Les deux sélecteurs couvrent les contrôles natifs V14 ainsi que
+ * de nombreux boutons ajoutés par des modules tiers.
+ * 0px conserve l'espacement natif de Foundry.
+ */
+#scene-controls .ui-control:not(:last-child),
+#scene-controls .control-tool:not(:last-child) {
+  margin-bottom: var(--gekko-ui-left-spacing);
+}
+
 /* Barre d'onglets droite */
 #sidebar-tabs {
   transform: scale(var(--gekko-ui-right-tabs-scale));
   transform-origin: top right;
   margin-bottom: calc((var(--gekko-ui-right-tabs-scale) - 1) * 38px);
+}
+
+/*
+ * Espacement supplémentaire entre les onglets de droite.
+ * Les marges négatives rapprochent les boutons, les positives les éloignent.
+ */
+#sidebar-tabs .ui-control:not(:last-child),
+#sidebar-tabs [data-tab]:not(:last-child) {
+  margin-right: var(--gekko-ui-right-tabs-spacing);
 }
 
 /* Contenu du panneau droit */
