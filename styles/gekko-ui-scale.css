@@ -1,0 +1,23 @@
+:root {
+  --gekko-ui-left-scale: 1;
+  --gekko-ui-right-tabs-scale: 1;
+  --gekko-ui-right-content-scale: 1;
+}
+
+/* Barre d'outils gauche */
+#scene-controls {
+  transform: scale(var(--gekko-ui-left-scale));
+  transform-origin: top left;
+}
+
+/* Barre d'onglets droite */
+#sidebar-tabs {
+  transform: scale(var(--gekko-ui-right-tabs-scale));
+  transform-origin: top right;
+  margin-bottom: calc((var(--gekko-ui-right-tabs-scale) - 1) * 38px);
+}
+
+/* Contenu du panneau droit */
+#sidebar-content {
+  zoom: var(--gekko-ui-right-content-scale);
+}
