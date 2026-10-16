@@ -2,11 +2,11 @@
   "GEKKO_UI_SCALE.Settings.LeftScale.Name": "Taille de la barre d’outils gauche",
   "GEKKO_UI_SCALE.Settings.LeftScale.Hint": "Agrandit ou réduit les contrôles situés à gauche. 100 % correspond à la taille normale de Foundry.",
   "GEKKO_UI_SCALE.Settings.LeftSpacing.Name": "Écartement des boutons de la barre gauche",
-  "GEKKO_UI_SCALE.Settings.LeftSpacing.Hint": "Ajuste l’espace entre les boutons de la barre gauche. 0 px conserve l’écartement normal de Foundry ; une valeur négative rapproche les boutons et une valeur positive les éloigne.",
+  "GEKKO_UI_SCALE.Settings.LeftSpacing.Hint": "Ajuste l’espace visuel entre tous les boutons détectés dans la barre gauche. 0 px conserve l’écartement normal de Foundry ; une valeur négative rapproche les boutons et une valeur positive les éloigne.",
   "GEKKO_UI_SCALE.Settings.RightTabsScale.Name": "Taille de la barre d’onglets droite",
   "GEKKO_UI_SCALE.Settings.RightTabsScale.Hint": "Agrandit ou réduit uniquement les boutons d’onglets situés en haut de la barre latérale droite. Le contenu du panneau n’est pas affecté.",
   "GEKKO_UI_SCALE.Settings.RightTabsSpacing.Name": "Écartement des boutons de la barre droite",
-  "GEKKO_UI_SCALE.Settings.RightTabsSpacing.Hint": "Ajuste l’espace entre les boutons de la barre d’onglets droite. 0 px conserve l’écartement normal de Foundry ; une valeur négative rapproche les boutons et une valeur positive les éloigne.",
+  "GEKKO_UI_SCALE.Settings.RightTabsSpacing.Hint": "Ajuste l’espace visuel entre les boutons de la barre d’onglets droite. 0 px conserve l’écartement normal de Foundry ; une valeur négative rapproche les boutons et une valeur positive les éloigne.",
   "GEKKO_UI_SCALE.Settings.RightContentScale.Name": "Taille du contenu du panneau droit",
   "GEKKO_UI_SCALE.Settings.RightContentScale.Hint": "Agrandit ou réduit uniquement le contenu affiché dans la barre latérale droite (chat, acteurs, scènes, paramètres, etc.), indépendamment de la taille des onglets."
 }
