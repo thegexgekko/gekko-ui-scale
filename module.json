@@ -3,7 +3,7 @@
   "type": "module",
   "title": "GEKKO — UI Scale",
   "description": "Redimensionne et ajuste indépendamment l’écartement de plusieurs zones de l’interface de Foundry VTT.",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "compatibility": {
     "minimum": "14",
     "verified": "14.369"
@@ -15,7 +15,7 @@
   ],
   "url": "https://github.com/thegexgekko/gekko-ui-scale",
   "manifest": "https://raw.githubusercontent.com/thegexgekko/gekko-ui-scale/main/module.json",
-  "download": "https://github.com/thegexgekko/gekko-ui-scale/releases/download/v0.1.5/gekko-ui-scale-0.1.5.zip",
+  "download": "https://github.com/thegexgekko/gekko-ui-scale/releases/download/v0.1.6/gekko-ui-scale-0.1.6.zip",
   "esmodules": [
     "scripts/main.js"
   ],
