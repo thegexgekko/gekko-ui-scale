@@ -1,6 +1,14 @@
-# GEKKO — UI Scale 0.1.3
+# GEKKO — UI Scale 0.1.4
 
 Module léger pour Foundry VTT V14.
+
+## Installation via Foundry
+
+Dans Foundry VTT, ouvre **Add-on Modules → Install Module** puis colle cette URL de manifeste :
+
+`https://raw.githubusercontent.com/thegexgekko/gekko-ui-scale/main/module.json`
+
+Foundry pourra ensuite détecter les futures mises à jour via ce manifeste stable.
 
 ## Réglages disponibles
 
@@ -13,24 +21,18 @@ Dans **Paramètres de la partie → Configurer les paramètres → Paramètres d
    - Contrôle uniquement les boutons d’onglets de la barre latérale droite.
 
 3. **Taille du contenu du panneau droit**
-   - Contrôle uniquement le contenu du panneau sélectionné à droite :
-     chat, acteurs, scènes, paramètres, etc.
+   - Contrôle uniquement le contenu du panneau sélectionné à droite : chat, acteurs, scènes, paramètres, etc.
 
 Chaque réglage va de **50 % à 200 %**, par pas de **5 %**.
 
 Les trois réglages sont indépendants et enregistrés côté client.
 
-## Mise à jour depuis la 0.1.2
-
-Les valeurs déjà enregistrées pour :
-- la barre gauche ;
-- la barre d’onglets droite ;
-
-sont conservées.
-
-Le nouveau réglage **Taille du contenu du panneau droit** démarre à **100 %**.
-
 ## Historique
+
+### 0.1.4
+- Ajout des métadonnées GitHub nécessaires à l’installation et aux mises à jour automatiques de Foundry.
+- Ajout d’une publication automatique des releases GitHub.
+- Aucun changement fonctionnel des réglages de mise à l’échelle.
 
 ### 0.1.3
 - Ajout d’un troisième réglage indépendant pour le contenu du panneau droit.

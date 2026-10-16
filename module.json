@@ -3,7 +3,7 @@
   "type": "module",
   "title": "GEKKO — UI Scale",
   "description": "Redimensionne indépendamment la barre d’outils gauche, les onglets de droite et le contenu de la barre latérale droite de Foundry VTT.",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "compatibility": {
     "minimum": "14",
     "verified": "14.369"
@@ -13,6 +13,9 @@
       "name": "GEKKO"
     }
   ],
+  "url": "https://github.com/thegexgekko/gekko-ui-scale",
+  "manifest": "https://raw.githubusercontent.com/thegexgekko/gekko-ui-scale/main/module.json",
+  "download": "https://github.com/thegexgekko/gekko-ui-scale/releases/download/v0.1.4/gekko-ui-scale-0.1.4.zip",
   "esmodules": [
     "scripts/main.js"
   ],
