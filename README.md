@@ -1,4 +1,4 @@
-# GEKKO — Interface Control 0.1.10
+# GEKKO — Interface Control 0.1.11
 
 Module léger pour Foundry VTT V14 dédié à la personnalisation ergonomique de l’interface.
 
@@ -58,6 +58,12 @@ Les réglages sont indépendants et enregistrés côté client.
 GEKKO — Interface Control propose des fonctions similaires à certains modules spécialisés de gestion de hotbar. Pour éviter que deux modules essaient de déplacer ou masquer la barre en même temps, il est recommandé de désactiver les fonctions équivalentes des autres modules.
 
 ## Historique
+
+### 0.1.11
+- Correction ciblée de l’écartement de la barre d’onglets droite sur Foundry V14.
+- La barre droite native de V14 est verticale : l’écartement est désormais appliqué sur l’axe vertical au lieu de l’axe horizontal.
+- Les éléments `<li>` complets sont déplacés, ce qui conserve ensemble le bouton et son éventuel indicateur de notification.
+- Détection automatique de l’orientation pour garder une compatibilité avec d’autres dispositions.
 
 ### 0.1.10
 - Correction renforcée de l’écartement de la barre d’onglets droite.

@@ -99,12 +99,17 @@ function getSpacingCandidates(root, { includeLinks = false } = {}) {
 }
 
 function getRightSpacingCandidates(root) {
+  // Foundry V14 place chaque onglet de la barre droite dans un <li>
+  // à l'intérieur de #sidebar-tabs > menu. On déplace le <li> complet
+  // afin que le bouton et son éventuel notification-pip restent ensemble.
+  const v14Items = [...root.querySelectorAll(":scope > menu > li")]
+    .filter(isVisibleSpacingElement);
+  if (v14Items.length >= 2) return v14Items;
+
   const interactive = getSpacingCandidates(root, { includeLinks: true });
   if (interactive.length >= 2) return interactive;
 
-  // Fallback V14 / modules tiers : certains onglets peuvent être des wrappers
-  // sans classe interactive connue. On prend alors le premier niveau visuel
-  // contenant au moins deux éléments.
+  // Fallback pour d'autres structures ou modules tiers.
   let level = [...root.children];
   for (let depth = 0; depth < 3 && level.length; depth += 1) {
     const visible = level.filter(isVisibleSpacingElement);
@@ -185,6 +190,31 @@ function applyRightSpacingLayout() {
     rect: element.getBoundingClientRect()
   }));
 
+  if (items.length < 2) return;
+
+  // Détermine automatiquement si les onglets sont disposés verticalement
+  // (Foundry V14 standard) ou horizontalement (compatibilité/futur layout).
+  const xCenters = items.map(({ rect }) => rect.left + rect.width / 2);
+  const yCenters = items.map(({ rect }) => rect.top + rect.height / 2);
+  const xSpan = Math.max(...xCenters) - Math.min(...xCenters);
+  const ySpan = Math.max(...yCenters) - Math.min(...yCenters);
+
+  if (ySpan >= xSpan) {
+    // Barre verticale : le premier bouton reste ancré et chaque bouton suivant
+    // est déplacé cumulativement vers le haut ou vers le bas.
+    for (const column of groupByAxis(items, "x")) {
+      column.items.sort((a, b) => a.rect.top - b.rect.top);
+
+      column.items.forEach((item, index) => {
+        rememberTranslate(item.element);
+        item.element.style.translate = `0 ${index * delta}px`;
+        item.element.dataset.gekkoUiSpacing = "right";
+      });
+    }
+    return;
+  }
+
+  // Fallback pour une barre horizontale : le bouton le plus à droite reste ancré.
   for (const row of groupByAxis(items, "y")) {
     row.items.sort((a, b) => a.rect.left - b.rect.left);
     const lastIndex = row.items.length - 1;
