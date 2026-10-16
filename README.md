@@ -1,4 +1,4 @@
-# GEKKO — Interface Control 0.1.11
+# GEKKO — Interface Control 0.1.12
 
 Module léger pour Foundry VTT V14 dédié à la personnalisation ergonomique de l’interface.
 
@@ -51,6 +51,15 @@ Dans **Paramètres de la partie → Configurer les paramètres → Paramètres d
    - **Bas de l’écran — centre**
    - **Bas de l’écran — droite**
 
+10. **Taille des boutons de la barre d’accès rapide**
+   - Réglable de **50 % à 200 %**, par pas de **5 %**.
+   - **100 %** conserve la taille native de Foundry.
+   - Le réglage s’appuie sur la variable de taille native `--hotbar-size`, ce qui permet aussi aux éléments tiers qui l’utilisent de suivre la nouvelle taille.
+
+11. **Écartement entre les boutons de la barre d’accès rapide**
+   - Ajuste l’espace entre les dix emplacements principaux de **-10 px à +20 px**.
+   - **0 px** conserve l’écartement normal de Foundry.
+
 Les réglages sont indépendants et enregistrés côté client.
 
 ## Compatibilité avec les modules de hotbar
@@ -58,6 +67,12 @@ Les réglages sont indépendants et enregistrés côté client.
 GEKKO — Interface Control propose des fonctions similaires à certains modules spécialisés de gestion de hotbar. Pour éviter que deux modules essaient de déplacer ou masquer la barre en même temps, il est recommandé de désactiver les fonctions équivalentes des autres modules.
 
 ## Historique
+
+### 0.1.12
+- Ajout d’un réglage indépendant de la taille des boutons de la hotbar, de **50 % à 200 %**.
+- Ajout d’un réglage indépendant de l’écartement des dix emplacements principaux, de **-10 px à +20 px**.
+- La taille repose sur la variable native `--hotbar-size` de Foundry V14 afin de préserver au mieux la disposition de la barre et la compatibilité avec les éléments tiers qui utilisent cette variable.
+- Les nouvelles fonctions sont isolées dans un script dédié afin de ne pas modifier le cœur stable des fonctions existantes.
 
 ### 0.1.11
 - Correction ciblée de l’écartement de la barre d’onglets droite sur Foundry V14.

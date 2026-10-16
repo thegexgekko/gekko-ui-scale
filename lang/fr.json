@@ -21,5 +21,9 @@
   "GEKKO_UI_SCALE.Settings.HotbarPosition.Standard": "Standard Foundry",
   "GEKKO_UI_SCALE.Settings.HotbarPosition.BottomLeft": "Bas de l’écran — gauche",
   "GEKKO_UI_SCALE.Settings.HotbarPosition.BottomCenter": "Bas de l’écran — centre",
-  "GEKKO_UI_SCALE.Settings.HotbarPosition.BottomRight": "Bas de l’écran — droite"
+  "GEKKO_UI_SCALE.Settings.HotbarPosition.BottomRight": "Bas de l’écran — droite",
+  "GEKKO_UI_SCALE.Settings.HotbarButtonScale.Name": "Taille des boutons de la barre d’accès rapide",
+  "GEKKO_UI_SCALE.Settings.HotbarButtonScale.Hint": "Agrandit ou réduit les boutons de la hotbar en utilisant la taille native de Foundry comme base. 100 % conserve la taille normale.",
+  "GEKKO_UI_SCALE.Settings.HotbarButtonSpacing.Name": "Écartement entre les boutons de la barre d’accès rapide",
+  "GEKKO_UI_SCALE.Settings.HotbarButtonSpacing.Hint": "Ajuste l’espace entre les dix emplacements principaux de la hotbar. 0 px conserve l’écartement normal ; une valeur négative rapproche les boutons et une valeur positive les éloigne."
 }
