@@ -3,7 +3,7 @@
   "type": "module",
   "title": "GEKKO — Interface Control",
   "description": "Personnalise l’échelle, l’écartement et la disposition de plusieurs zones de l’interface de Foundry VTT, y compris la barre d’accès rapide.",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "compatibility": {
     "minimum": "14",
     "verified": "14.369"
@@ -15,9 +15,10 @@
   ],
   "url": "https://github.com/thegexgekko/gekko-ui-scale",
   "manifest": "https://raw.githubusercontent.com/thegexgekko/gekko-ui-scale/main/module.json",
-  "download": "https://github.com/thegexgekko/gekko-ui-scale/releases/download/v0.1.11/gekko-ui-scale-0.1.11.zip",
+  "download": "https://github.com/thegexgekko/gekko-ui-scale/releases/download/v0.1.12/gekko-ui-scale-0.1.12.zip",
   "esmodules": [
-    "scripts/main.js"
+    "scripts/main.js",
+    "scripts/hotbar-size-spacing.js"
   ],
   "styles": [
     "styles/gekko-ui-scale.css"
