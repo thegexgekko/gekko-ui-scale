@@ -125,11 +125,7 @@ function applyLeftSpacingLayout() {
 
     column.items.forEach((item, index) => {
       rememberTranslate(item.element);
-      const base = originalTranslate.get(item.element) || "";
-      const offset = index * delta;
-      item.element.style.translate = base
-        ? `${base} 0 ${offset}px`
-        : `0 ${offset}px`;
+      item.element.style.translate = `0 ${index * delta}px`;
       item.element.dataset.gekkoUiSpacing = "left";
     });
   }
@@ -159,11 +155,8 @@ function applyRightSpacingLayout() {
 
     row.items.forEach((item, index) => {
       rememberTranslate(item.element);
-      const base = originalTranslate.get(item.element) || "";
       const offset = -(lastIndex - index) * delta;
-      item.element.style.translate = base
-        ? `${base} ${offset}px 0`
-        : `${offset}px 0`;
+      item.element.style.translate = `${offset}px 0`;
       item.element.dataset.gekkoUiSpacing = "right";
     });
   }
