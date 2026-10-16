@@ -53,5 +53,5 @@ jobs:
         run: |
           gh release create "v${VERSION}" \
             "dist/gekko-ui-scale-${VERSION}.zip" \
-            --title "GEKKO — UI Control v${VERSION}" \
-            --notes "Release automatique de GEKKO — UI Control v${VERSION} pour Foundry VTT."
+            --title "GEKKO — Interface Control v${VERSION}" \
+            --notes "Release automatique de GEKKO — Interface Control v${VERSION} pour Foundry VTT."
