@@ -58,10 +58,19 @@ function restoreTranslatedElements(root) {
   }
 }
 
-function getSpacingCandidates(root) {
+function isVisibleSpacingElement(element) {
+  const style = getComputedStyle(element);
+  const rect = element.getBoundingClientRect();
+  return style.display !== "none" &&
+    style.visibility !== "hidden" &&
+    rect.width >= 8 &&
+    rect.height >= 8;
+}
+
+function getSpacingCandidates(root, { includeLinks = false } = {}) {
   if (!root) return [];
 
-  const selector = [
+  const selectors = [
     "button",
     ".ui-control",
     ".control-tool",
@@ -70,16 +79,12 @@ function getSpacingCandidates(root) {
     "[data-control]",
     "[data-tool]",
     "[role='button']"
-  ].join(",");
+  ];
 
-  const candidates = [...root.querySelectorAll(selector)].filter(element => {
-    const style = getComputedStyle(element);
-    const rect = element.getBoundingClientRect();
-    return style.display !== "none" &&
-      style.visibility !== "hidden" &&
-      rect.width >= 8 &&
-      rect.height >= 8;
-  });
+  if (includeLinks) selectors.push("a", ".item");
+
+  const candidates = [...root.querySelectorAll(selectors.join(","))]
+    .filter(isVisibleSpacingElement);
 
   const candidateSet = new Set(candidates);
 
@@ -91,6 +96,23 @@ function getSpacingCandidates(root) {
     }
     return true;
   });
+}
+
+function getRightSpacingCandidates(root) {
+  const interactive = getSpacingCandidates(root, { includeLinks: true });
+  if (interactive.length >= 2) return interactive;
+
+  // Fallback V14 / modules tiers : certains onglets peuvent être des wrappers
+  // sans classe interactive connue. On prend alors le premier niveau visuel
+  // contenant au moins deux éléments.
+  let level = [...root.children];
+  for (let depth = 0; depth < 3 && level.length; depth += 1) {
+    const visible = level.filter(isVisibleSpacingElement);
+    if (visible.length >= 2) return visible;
+    level = visible.flatMap(element => [...element.children]);
+  }
+
+  return interactive;
 }
 
 function groupByAxis(items, axis) {
@@ -158,7 +180,7 @@ function applyRightSpacingLayout() {
 
   const scale = clampPercent(game.settings.get(MODULE_ID, "rightScale")) / 100;
   const delta = spacing / scale;
-  const items = getSpacingCandidates(root).map(element => ({
+  const items = getRightSpacingCandidates(root).map(element => ({
     element,
     rect: element.getBoundingClientRect()
   }));
@@ -346,7 +368,7 @@ function applyHotbarPosition() {
 }
 
 Hooks.once("init", () => {
-  console.log("GEKKO — UI Scale | Initialisation");
+  console.log("GEKKO — Interface Control | Initialisation");
 
   game.settings.register(MODULE_ID, "leftScale", {
     name: "GEKKO_UI_SCALE.Settings.LeftScale.Name",
@@ -471,5 +493,5 @@ Hooks.once("ready", () => {
     scheduleHotbarRefresh();
   });
 
-  console.log("GEKKO — UI Scale | Prêt");
+  console.log("GEKKO — Interface Control | Prêt");
 });
