@@ -3,6 +3,15 @@ const MODULE_ID = "gekko-ui-scale";
 const originalTranslate = new WeakMap();
 let spacingObserver;
 let spacingFrame;
+let hotbarFrame;
+let hotbarHideTimer;
+let hotbarAutoHideState = false;
+
+const HOTBAR_POSITION_CLASSES = [
+  "gekko-ui-hotbar-bottom-left",
+  "gekko-ui-hotbar-bottom-center",
+  "gekko-ui-hotbar-bottom-right"
+];
 
 function clampPercent(value) {
   const n = Number(value);
@@ -14,6 +23,18 @@ function clampSpacing(value) {
   const n = Number(value);
   if (!Number.isFinite(n)) return 0;
   return Math.min(20, Math.max(-10, n));
+}
+
+function clampRevealHeight(value) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return 12;
+  return Math.min(100, Math.max(1, n));
+}
+
+function clampHideDelay(value) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return 2000;
+  return Math.min(5000, Math.max(0, n));
 }
 
 function setScaleVariable(variableName, value) {
@@ -62,8 +83,6 @@ function getSpacingCandidates(root) {
 
   const candidateSet = new Set(candidates);
 
-  // Si un bouton correspond à plusieurs structures imbriquées, on garde
-  // seulement l'élément interactif le plus extérieur pour ne pas le déplacer deux fois.
   return candidates.filter(element => {
     let parent = element.parentElement;
     while (parent && parent !== root) {
@@ -117,9 +136,6 @@ function applyLeftSpacingLayout() {
     rect: element.getBoundingClientRect()
   }));
 
-  // La barre gauche peut comporter plusieurs colonnes et plusieurs structures
-  // HTML selon Foundry ou les modules installés. On se base donc sur leur
-  // position visuelle plutôt que sur une classe CSS particulière.
   for (const column of groupByAxis(items, "x")) {
     column.items.sort((a, b) => a.rect.top - b.rect.top);
 
@@ -147,8 +163,6 @@ function applyRightSpacingLayout() {
     rect: element.getBoundingClientRect()
   }));
 
-  // Les onglets peuvent passer sur plusieurs lignes. Chaque ligne est traitée
-  // séparément et son bouton le plus à droite reste ancré au bord du sidebar.
   for (const row of groupByAxis(items, "y")) {
     row.items.sort((a, b) => a.rect.left - b.rect.left);
     const lastIndex = row.items.length - 1;
@@ -175,6 +189,124 @@ function scheduleSpacingRefresh() {
   });
 }
 
+function resolveHotbarElement() {
+  const uiElement = globalThis.ui?.hotbar?.element;
+  if (uiElement instanceof HTMLElement) return uiElement;
+  if (uiElement?.[0] instanceof HTMLElement) return uiElement[0];
+
+  return document.querySelector("#hotbar") ||
+    document.querySelector("#ui-bottom .hotbar") ||
+    document.querySelector(".hotbar");
+}
+
+function isHotbarAutoHideEnabled() {
+  return Boolean(game.settings.get(MODULE_ID, "hotbarAutoHide"));
+}
+
+function clearHotbarHideTimer() {
+  if (!hotbarHideTimer) return;
+  clearTimeout(hotbarHideTimer);
+  hotbarHideTimer = undefined;
+}
+
+function showHotbar() {
+  clearHotbarHideTimer();
+  document.body?.classList.remove("gekko-ui-hotbar-hidden");
+}
+
+function hideHotbar() {
+  clearHotbarHideTimer();
+  if (!isHotbarAutoHideEnabled()) return;
+  document.body?.classList.add("gekko-ui-hotbar-hidden");
+}
+
+function scheduleHotbarHide() {
+  if (!isHotbarAutoHideEnabled()) return;
+  if (hotbarHideTimer) return;
+
+  const delay = clampHideDelay(game.settings.get(MODULE_ID, "hotbarHideDelay"));
+  if (delay === 0) {
+    hideHotbar();
+    return;
+  }
+
+  hotbarHideTimer = setTimeout(() => {
+    hotbarHideTimer = undefined;
+    hideHotbar();
+  }, delay);
+}
+
+function pointerIsInsideHotbar(event) {
+  const hotbar = resolveHotbarElement();
+  if (!hotbar) return false;
+
+  if (event.target instanceof Element && hotbar.contains(event.target)) {
+    return true;
+  }
+
+  const rect = hotbar.getBoundingClientRect();
+  return event.clientX >= rect.left &&
+    event.clientX <= rect.right &&
+    event.clientY >= rect.top &&
+    event.clientY <= rect.bottom;
+}
+
+function handleHotbarPointerMove(event) {
+  if (!isHotbarAutoHideEnabled()) return;
+
+  const revealHeight = clampRevealHeight(
+    game.settings.get(MODULE_ID, "hotbarRevealHeight")
+  );
+
+  const inRevealZone = event.clientY >= window.innerHeight - revealHeight;
+
+  if (inRevealZone || pointerIsInsideHotbar(event)) {
+    showHotbar();
+    return;
+  }
+
+  scheduleHotbarHide();
+}
+
+function applyHotbarSettings({ resetHideTimer = false } = {}) {
+  const body = document.body;
+  if (!body) return;
+
+  for (const className of HOTBAR_POSITION_CLASSES) {
+    body.classList.remove(className);
+  }
+
+  const position = game.settings.get(MODULE_ID, "hotbarPosition");
+  if (position === "bottom-left") {
+    body.classList.add("gekko-ui-hotbar-bottom-left");
+  } else if (position === "bottom-center") {
+    body.classList.add("gekko-ui-hotbar-bottom-center");
+  } else if (position === "bottom-right") {
+    body.classList.add("gekko-ui-hotbar-bottom-right");
+  }
+
+  const enabled = isHotbarAutoHideEnabled();
+  body.classList.toggle("gekko-ui-hotbar-autohide", enabled);
+
+  if (!enabled) {
+    clearHotbarHideTimer();
+    body.classList.remove("gekko-ui-hotbar-hidden");
+  } else if (!hotbarAutoHideState || resetHideTimer) {
+    showHotbar();
+    scheduleHotbarHide();
+  }
+
+  hotbarAutoHideState = enabled;
+}
+
+function scheduleHotbarRefresh() {
+  if (hotbarFrame) cancelAnimationFrame(hotbarFrame);
+  hotbarFrame = requestAnimationFrame(() => {
+    hotbarFrame = undefined;
+    applyHotbarSettings();
+  });
+}
+
 function applyLeftScale(value) {
   setScaleVariable("--gekko-ui-left-scale", value);
   scheduleSpacingRefresh();
@@ -195,6 +327,22 @@ function applyRightTabsSpacing() {
 
 function applyRightContentScale(value) {
   setScaleVariable("--gekko-ui-right-content-scale", value);
+}
+
+function applyHotbarAutoHide() {
+  applyHotbarSettings({ resetHideTimer: true });
+}
+
+function applyHotbarRevealHeight() {
+  applyHotbarSettings({ resetHideTimer: true });
+}
+
+function applyHotbarHideDelay() {
+  applyHotbarSettings({ resetHideTimer: true });
+}
+
+function applyHotbarPosition() {
+  applyHotbarSettings();
 }
 
 Hooks.once("init", () => {
@@ -254,6 +402,54 @@ Hooks.once("init", () => {
     default: 100,
     onChange: applyRightContentScale
   });
+
+  game.settings.register(MODULE_ID, "hotbarAutoHide", {
+    name: "GEKKO_UI_SCALE.Settings.HotbarAutoHide.Name",
+    hint: "GEKKO_UI_SCALE.Settings.HotbarAutoHide.Hint",
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: false,
+    onChange: applyHotbarAutoHide
+  });
+
+  game.settings.register(MODULE_ID, "hotbarRevealHeight", {
+    name: "GEKKO_UI_SCALE.Settings.HotbarRevealHeight.Name",
+    hint: "GEKKO_UI_SCALE.Settings.HotbarRevealHeight.Hint",
+    scope: "client",
+    config: true,
+    type: Number,
+    range: { min: 1, max: 100, step: 1 },
+    default: 12,
+    onChange: applyHotbarRevealHeight
+  });
+
+  game.settings.register(MODULE_ID, "hotbarHideDelay", {
+    name: "GEKKO_UI_SCALE.Settings.HotbarHideDelay.Name",
+    hint: "GEKKO_UI_SCALE.Settings.HotbarHideDelay.Hint",
+    scope: "client",
+    config: true,
+    type: Number,
+    range: { min: 0, max: 5000, step: 100 },
+    default: 2000,
+    onChange: applyHotbarHideDelay
+  });
+
+  game.settings.register(MODULE_ID, "hotbarPosition", {
+    name: "GEKKO_UI_SCALE.Settings.HotbarPosition.Name",
+    hint: "GEKKO_UI_SCALE.Settings.HotbarPosition.Hint",
+    scope: "client",
+    config: true,
+    type: String,
+    choices: {
+      standard: "GEKKO_UI_SCALE.Settings.HotbarPosition.Standard",
+      "bottom-left": "GEKKO_UI_SCALE.Settings.HotbarPosition.BottomLeft",
+      "bottom-center": "GEKKO_UI_SCALE.Settings.HotbarPosition.BottomCenter",
+      "bottom-right": "GEKKO_UI_SCALE.Settings.HotbarPosition.BottomRight"
+    },
+    default: "standard",
+    onChange: applyHotbarPosition
+  });
 });
 
 Hooks.once("ready", () => {
@@ -261,12 +457,19 @@ Hooks.once("ready", () => {
   applyRightTabsScale(game.settings.get(MODULE_ID, "rightScale"));
   applyRightContentScale(game.settings.get(MODULE_ID, "rightContentScale"));
   scheduleSpacingRefresh();
+  applyHotbarSettings({ resetHideTimer: true });
 
-  // Les barres peuvent être rerendues lorsqu'un module ajoute ou retire un bouton.
-  // On réapplique alors automatiquement l'écartement sans demander de rechargement.
-  spacingObserver = new MutationObserver(scheduleSpacingRefresh);
+  spacingObserver = new MutationObserver(() => {
+    scheduleSpacingRefresh();
+    scheduleHotbarRefresh();
+  });
   spacingObserver.observe(document.body, { childList: true, subtree: true });
-  window.addEventListener("resize", scheduleSpacingRefresh);
+
+  document.addEventListener("pointermove", handleHotbarPointerMove, { passive: true });
+  window.addEventListener("resize", () => {
+    scheduleSpacingRefresh();
+    scheduleHotbarRefresh();
+  });
 
   console.log("GEKKO — UI Scale | Prêt");
 });
