@@ -8,5 +8,18 @@
   "GEKKO_UI_SCALE.Settings.RightTabsSpacing.Name": "Écartement des boutons de la barre droite",
   "GEKKO_UI_SCALE.Settings.RightTabsSpacing.Hint": "Ajuste l’espace visuel entre les boutons de la barre d’onglets droite. 0 px conserve l’écartement normal de Foundry ; une valeur négative rapproche les boutons et une valeur positive les éloigne.",
   "GEKKO_UI_SCALE.Settings.RightContentScale.Name": "Taille du contenu du panneau droit",
-  "GEKKO_UI_SCALE.Settings.RightContentScale.Hint": "Agrandit ou réduit uniquement le contenu affiché dans la barre latérale droite (chat, acteurs, scènes, paramètres, etc.), indépendamment de la taille des onglets."
+  "GEKKO_UI_SCALE.Settings.RightContentScale.Hint": "Agrandit ou réduit uniquement le contenu affiché dans la barre latérale droite (chat, acteurs, scènes, paramètres, etc.), indépendamment de la taille des onglets.",
+
+  "GEKKO_UI_SCALE.Settings.HotbarAutoHide.Name": "Masquage automatique de la barre d’accès rapide",
+  "GEKKO_UI_SCALE.Settings.HotbarAutoHide.Hint": "Masque automatiquement la barre d’accès rapide lorsqu’elle n’est pas utilisée. Elle réapparaît lorsque le curseur entre dans la zone de révélation située en bas de l’écran.",
+  "GEKKO_UI_SCALE.Settings.HotbarRevealHeight.Name": "Hauteur de la zone de révélation de la barre d’accès rapide",
+  "GEKKO_UI_SCALE.Settings.HotbarRevealHeight.Hint": "Définit, en pixels, la hauteur de la zone située au bas de l’écran qui fait réapparaître la barre d’accès rapide lorsque le curseur y entre.",
+  "GEKKO_UI_SCALE.Settings.HotbarHideDelay.Name": "Délai avant masquage de la barre d’accès rapide (ms)",
+  "GEKKO_UI_SCALE.Settings.HotbarHideDelay.Hint": "Temps d’attente après que le curseur a quitté la barre et la zone de révélation avant le masquage. 2000 ms correspondent à 2 secondes.",
+  "GEKKO_UI_SCALE.Settings.HotbarPosition.Name": "Position de la barre d’accès rapide",
+  "GEKKO_UI_SCALE.Settings.HotbarPosition.Hint": "Choisit la position de la barre d’accès rapide. Le mode Standard Foundry conserve exactement son placement natif.",
+  "GEKKO_UI_SCALE.Settings.HotbarPosition.Standard": "Standard Foundry",
+  "GEKKO_UI_SCALE.Settings.HotbarPosition.BottomLeft": "Bas de l’écran — gauche",
+  "GEKKO_UI_SCALE.Settings.HotbarPosition.BottomCenter": "Bas de l’écran — centre",
+  "GEKKO_UI_SCALE.Settings.HotbarPosition.BottomRight": "Bas de l’écran — droite"
 }
